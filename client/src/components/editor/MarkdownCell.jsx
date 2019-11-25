@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import propTypes from "prop-types";
 import { CellContext, CellDispatchContext } from "../../stores/CellStore";
 import { cellActionCreator } from "../../actions/CellAction";
 import MarkdownWrapper from "./style/MarkdownWrapper";
@@ -42,9 +43,9 @@ const MarkdownCell = ({ cellUuid }) => {
     if (inputRef && inputRef.current) {
       inputRef.current.focus();
 
-      const front = text.slice(0, cursor.start);
-      const back = text.slice(cursor.start, text.length);
-      const content = `${front}<span id="cursorCaret"></span>${back}`;
+      const cursorFront = text.slice(0, cursor.start);
+      const cursorBack = text.slice(cursor.start, text.length);
+      const content = `${cursorFront}<span id="cursorCaret"></span>${cursorBack}`;
       inputRef.current.innerHTML = content;
 
       const selection = window.getSelection();
@@ -236,6 +237,10 @@ const MarkdownCell = ({ cellUuid }) => {
       {text}
     </MarkdownWrapper>
   );
+};
+
+MarkdownCell.propTypes = {
+  cellUuid: propTypes.string.isRequired,
 };
 
 export default MarkdownCell;
